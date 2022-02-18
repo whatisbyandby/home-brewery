@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker-compose bulid'
+                sh 'docker-compose build'
             }
         }
         stage('Test') {
