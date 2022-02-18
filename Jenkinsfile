@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh 'cd brewhouse_backend'
+                sh 'pytest'
             }
         }
         stage('Deploy') {
