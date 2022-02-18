@@ -1,0 +1,17 @@
+services:
+  brewhouse_backend:
+    build: ./brewhouse_backend
+    ports:
+      - '5000:5000'
+    restart: always
+  brewhouse_database:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - './brewhouse_database/data:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_USER=brewhouse
+      - POSTGRES_PASSWORD=brewhouse
+      - POSTGRES_DB=brewhouse
+    restart: always

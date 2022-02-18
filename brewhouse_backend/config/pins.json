@@ -1,0 +1,6 @@
+{
+    "heater_pin": "D5",
+    "cooler_pin": "D6",
+    "temp_probe_one": "D7",
+    "temp_probe_two": "D8"
+}
