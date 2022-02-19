@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'docker login -u $DOCKER_CREDENTIALS_USR --password $DOCKER_CREDENTIALS_PWD'
+                sh 'docker login -u $DOCKER_CREDENTIALS_USR --password $DOCKER_CREDENTIALS_PSW'
                 sh 'docker push whatisbyandby1/brewhouse_backend:latest'
             }
         }
