@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                docker.build('whatisbyandby1/brewhouse-backend')
+                sh 'docker build -t whatisbyandby1/brewhouse-backend:latest ./brewhouse_backend'
             }
         }
         stage('Test') {
@@ -16,11 +16,9 @@ pipeline {
             }
         }
         stage('Push') {
-            docker.withRegistry("https://registry.hub.docker.com", 'docker-credentials'){
-                steps {
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push brewhouse_backend:latest'
-                }
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push whatisbyandby1/brewhouse_backend:latest'
             }
         }
     }
