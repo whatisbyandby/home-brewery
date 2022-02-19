@@ -2,6 +2,10 @@ FROM python:3.9.10
 
 WORKDIR /app
 
+# Install dev dependencies
+COPY development.txt development.txt
+RUN python -m pip install -r development.txt
+
 # Install dependencies
 COPY requirements.txt requirements.txt
 RUN python -m pip install -r requirements.txt
@@ -11,4 +15,4 @@ COPY . .
 
 EXPOSE 5000
 
-ENTRYPOINT [ "python", "./src/main.py" ]
+CMD [ "python", "./src/main.py" ]
