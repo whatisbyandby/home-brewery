@@ -9,8 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'cd brewhouse_backend'
-                sh 'pytest'
+                sh 'docker run --entrypoint pytest brewhouse_backend'
             }
         }
         stage('Deploy') {
