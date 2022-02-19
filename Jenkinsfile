@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_CREDENTIALS = credentials("docker-credentials")
+    }
 
     stages {
         stage('Build') {
@@ -12,9 +15,10 @@ pipeline {
                 sh 'docker run --entrypoint pytest brewhouse_backend'
             }
         }
-        stage('Deploy') {
+        stage('Push') {
             steps {
-                echo 'Deploying....'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push brewhouse_backend:latest'
             }
         }
     }
