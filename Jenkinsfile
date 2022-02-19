@@ -21,5 +21,16 @@ pipeline {
                 sh 'docker push whatisbyandby1/brewhouse-backend:latest'
             }
         }
+        stage('Build Frontend') {
+            steps {
+                sh 'docker build -t whatisbyandby1/brewhouse-frontend:latest ./brewhouse_frontend'
+            }
+        }
+        stage('Push Frontend') {
+            steps {
+                sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+                sh 'docker push whatisbyandby1/brewhouse-frontend:latest'
+            }
+        }
     }
 }
