@@ -1,7 +1,7 @@
 services:
   brewhouse_backend:
     build: ./brewhouse_backend
-    image: brewhouse_backend:latest
+    image: whatisbyandby1/brewhouse_backend:latest
     ports:
       - '5000:5000'
     restart: always
