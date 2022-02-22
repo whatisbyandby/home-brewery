@@ -16,7 +16,8 @@ class ControllerState(Enum):
 
 
 class BrewhouseController:
-    def __init__(self):
+    def __init__(self, sensors: list, step_list: list):
+        self.sensors = sensors
         self.ambient_temperature = 0
         self.current_temperature = 0
         self.set_temperature = 0
@@ -25,6 +26,8 @@ class BrewhouseController:
         self.state = ControllerState.IDLE
         self.pump_one_active = False
         self.pump_two_active = False
+        self.step_list = step_list
+        self.current_step: Step = None
 
     def update_set_temperature(self, new_set_temperature):
         self.set_temperature = new_set_temperature
@@ -64,13 +67,19 @@ class BrewhouseController:
         self.state = new_state
 
     async def run(self):
+        if self.current_step is None:
+            self.current_step = self.step_list[0]
+            self.current_step.start()
         while True:
             self.read_temperature()
             await self.publish_temperature()
-            await asyncio.sleep(5)
+            if self.current_step.is_completed():
+                break
+            await asyncio.sleep(1)
+        print('Done')
 
     def read_temperature(self):
-        self.current_temperature = round(Random().random() * 100, 2)
+        self.current_temperature = self.sensors[0].get_current_temp()
 
     async def publish_temperature(self):
         await broadcast({
