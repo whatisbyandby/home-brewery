@@ -2,7 +2,8 @@ from brewhouse_controller import Pump
 
 
 def test_pump():
-    test_pump = Pump()
+    pin = 1
+    test_pump = Pump(pin)
 
     test_pump.pump_on()
 
