@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Test Backend') {
             steps {
-                sh 'docker run --entrypoint pytest brewhouse_backend'
+                sh 'docker run --entrypoint pytest whatisbyandby1/brewhouse-backend:latest'
             }
         }
         stage('Push Backend') {

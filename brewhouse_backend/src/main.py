@@ -1,11 +1,13 @@
 import asyncio
-from brewhouse_controller import BrewhouseController
+from brewhouse_controller import Repository, BrewhouseController
 from server import initalize_server
 
 
 async def main():
 
-    temp_controller = BrewhouseController()
+    repo = Repository()
+
+    temp_controller = BrewhouseController(repo)
 
     app = initalize_server()
 

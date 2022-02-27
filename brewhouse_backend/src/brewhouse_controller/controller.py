@@ -1,6 +1,5 @@
 import asyncio
 from enum import Enum
-from random import Random
 from server import broadcast
 
 
@@ -16,8 +15,8 @@ class ControllerState(Enum):
 
 
 class BrewhouseController:
-    def __init__(self, sensors: list, step_list: list):
-        self.sensors = sensors
+    def __init__(self, repo):
+        self.repo = repo
         self.ambient_temperature = 0
         self.current_temperature = 0
         self.set_temperature = 0
@@ -26,7 +25,6 @@ class BrewhouseController:
         self.state = ControllerState.IDLE
         self.pump_one_active = False
         self.pump_two_active = False
-        self.step_list = step_list
         self.current_step: Step = None
 
     def update_set_temperature(self, new_set_temperature):
