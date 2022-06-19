@@ -7,11 +7,13 @@ class ControllerMode(Enum):
     HEATER = "HEATER"
     COOLER = "COOLER"
 
+
 class ControllerState(Enum):
     HEATER_ON = "HEATER_ON"
     COOLER_ON = "COOLER_ON"
     ALL_OFF = "ALL_OFF"
     ERROR = "ERROR"
+
 
 class TemperatureState(Enum):
     OVER_TEMP = "OVER_TEMP"
@@ -19,9 +21,10 @@ class TemperatureState(Enum):
     IN_RANGE_UNDER = "IN_RANGE_UNDER"
     IN_RANGE_OVER = "IN_RANGE_OVER"
 
+
 class TemperatureController:
 
-    def __init__(self, sensor: Sensor, set_temperature: float, mode: ControllerMode, temp_range: float = 1.0, heater: Heater =None, cooler=None):
+    def __init__(self, sensor: Sensor, set_temperature: float, mode: ControllerMode, temp_range: float = 1.0, heater: Heater = None, cooler=None):
         self._sensor = sensor
         self._set_temperature = set_temperature
         self._mode = mode
@@ -32,10 +35,11 @@ class TemperatureController:
         self.cooler = cooler
 
         if mode == ControllerMode.HEATER and heater is None:
-            raise Exception("Error creating the controller, mode is set to heater, but no heater is provided")
+            raise Exception(
+                "Error creating the controller, mode is set to heater, but no heater is provided")
         if mode == ControllerMode.COOLER and cooler is None:
-            raise Exception("Error creating the controller, mode is set to cooler, but no cooler is provided")
-
+            raise Exception(
+                "Error creating the controller, mode is set to cooler, but no cooler is provided")
 
     def get_current_temperature(self):
         return self._sensor.get_temperature()
@@ -58,10 +62,10 @@ class TemperatureController:
         next_state = self._get_next_state(cur_temp_state)
         self._set_state(next_state)
         return self.get_state()
-        
+
     def update_set_temp(self, new_set_temp: float):
         self._set_temperature = new_set_temp
-        
+
     def update_temp_range(self, temp_range: float):
         self._temp_range = temp_range
 
@@ -76,7 +80,7 @@ class TemperatureController:
 
     def _set_state(self, new_state):
         if new_state == self._current_state:
-            return 
+            return
         self._current_state = new_state
 
     def _get_next_state(self, temp_state: TemperatureState):
@@ -99,7 +103,3 @@ class TemperatureController:
         if temp_state == TemperatureState.OVER_TEMP and self._mode == ControllerMode.COOLER:
             return ControllerState.COOLER_ON
         return ControllerState.ERROR
-
-
-    
-

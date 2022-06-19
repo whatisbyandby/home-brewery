@@ -1,69 +1,37 @@
-from fastapi import FastAPI, WebSocket, Response, status
-from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
-from dataclasses import dataclass
-import json
+from fastapi import FastAPI, WebSocket, Response, status, Request
 from typing import List
-import os
+import logging
+
+from app.pump.pump import Pump
+from app.temperature_controller.heater import Heater
+from app.step_controller.step_controller import StepController
+from app.routes.steps import router
 
 app = FastAPI()
 
-class MashStep(BaseModel):
-    temp: float
-    duration: int
+logging.basicConfig(filename='./log/app.log', level=logging.DEBUG, filemode='w',
+                    format='%(asctime)s [%(levelname)s-%(name)s] %(message)s')
 
-class MashProfile(BaseModel):
-    name: str
-    description: str
-    steps: List[MashStep]
 
-class Recipe(BaseModel):
-    name: str
-    description: str
-    mash_profile: MashProfile
+def initialize_context():
+    logging.info("Initializing brewery")
+    return {
+        "pump_one": Pump("pump_one"),
+        "pump_two": Pump("pump_two"),
+        "mash_heater": Heater(),
+        "hlt_heater": Heater(),
+        "boil_heater": Heater(),
+        "step_controller": StepController()
+    }
 
-@app.on_event("startup")
-async def startup_event():
-    engine = db.create_engine('sqlite:///data/brewhouse.db')
-    engine.connect()
-    
-    
+
+app.context = initialize_context()
+
+app.include_router(router)
+
+
 @app.get("/")
-async def home():
+async def home(request: Request):
+    logging.info(request.app)
+    logging.info("Home page")
     return {"Hello": "World"}
-
-@app.get("/recipe")
-async def get_recipe(recipe: Recipe, response: Response):
-    try:
-        with open("./data/recipe.json", "r") as existing_file:
-            existing_recipe = json.load(existing_file)
-            return existing_recipe
-    except FileNotFoundError as e:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return {"message": "No Current Recipe Set"}
-
-
-@app.post("/recipe")
-async def post_recipe(recipe: Recipe, response: Response):
-    cursor = connection.cursor()
-    print(connection.total_changes)
-    return "Hello World"
-    
-
-@app.delete("/recipe")
-async def delete_recipe(response: Response):
-    try:
-        os.remove("./data/recipe.json")
-        return {"message": "Recipe removed"}
-    except FileNotFoundError:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return {"message": "No recipe is set"}
-
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")

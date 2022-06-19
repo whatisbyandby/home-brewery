@@ -1,10 +1,12 @@
-from .timer import Timer
+from app.timer.timer import Timer
 import time
 
 num_calls = 0
 
+
 def test_timer():
     global num_calls
+
     def test_on_complete():
         global num_calls
         num_calls += 1

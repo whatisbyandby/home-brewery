@@ -16,5 +16,7 @@ COPY ./app /code/app
 
 COPY ./data /code/data
 
+COPY ./log /code/log
+
 # 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
