@@ -14,7 +14,7 @@ logging.basicConfig(filename='./log/app.log', level=logging.DEBUG, filemode='w',
 
 
 def initialize_context():
-    logging.info("Initializing brewery")
+    logging.info("Initializing Brewery Context")
     return {
         "pump_one": Pump("pump_one"),
         "pump_two": Pump("pump_two"),
