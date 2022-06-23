@@ -1,6 +1,7 @@
 import random
-from app.temperature_controller import Sensor
+from app.temperature_controller.sensor import Sensor
 from typing import List
+
 
 class MockSensor(Sensor):
 
