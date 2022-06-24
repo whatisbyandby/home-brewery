@@ -11,14 +11,18 @@ class Heater(Protocol):
     def get_state(self):
         ...
 
-def create_heater(heater_type: str) -> Heater:
+def create_heater(heater_config: dict) -> Heater:
 
+    if heater_config.get("type") == "PUMP_HEATER":
+        return PumpHeater(control_pin=heater_config.get("pin_num"), pump=None)
 
-    if heater_type == "STANDARD":
+    if heater_config.get("type") == "STANDARD":
         return StandardHeater(1)
     
-    if heater_type == "MOCK":
+    if heater_config.get("type") == "MOCK":
         return MockHeater()
+
+    
 
     raise Exception("Unable to create heater")
     

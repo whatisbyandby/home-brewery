@@ -6,8 +6,8 @@ from dataclasses import dataclass
 @dataclass
 class KettleConfig:
     name: str
-    sensor_type: str
-    heater_type: str
+    sensor_config: dict
+    heater_config: dict
 
 
 class Kettle:
@@ -26,8 +26,8 @@ class Kettle:
 def create_kettle(kettle_config: KettleConfig) -> Kettle:
 
     name = kettle_config.name
-    sensor = create_sensor(kettle_config.sensor_type)
-    heater = create_heater(kettle_config.heater_type)
+    sensor = create_sensor(kettle_config.sensor_config)
+    heater = create_heater(kettle_config.heater_config)
     mode = ControllerMode.HEATER
     temp_range = 1
 

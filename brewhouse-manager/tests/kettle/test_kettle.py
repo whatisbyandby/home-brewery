@@ -4,7 +4,7 @@ from app.temperature_controller.heaters import MockHeater
 from tests.temperature_controller.mock_sensor import MockSensor
 
 def test_create_kettle():
-    kettle_config = KettleConfig(name="Test", sensor_type="MOCK", heater_type="MOCK")
+    kettle_config = KettleConfig(name="Test", sensor_config={"type": "MOCK"}, heater_config={"type": "MOCK"})
     kettle = create_kettle(kettle_config=kettle_config)
 
 def test_kettle_init():

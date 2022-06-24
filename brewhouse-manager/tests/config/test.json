@@ -1,0 +1,71 @@
+{
+    "pumps": [
+        {
+            "name": "pump_one",
+            "pin_number": 1
+        },
+        {
+            "name": "pump_two",
+            "pin_number": 2
+        }
+    ],
+    "kettles": [
+        {
+            "id": "hlt",
+            "name": "Hot Liquor Tank",
+            "temperature_controller": {
+                "sensors": [
+                    {
+                        "id": "hlt_temp",
+                        "type": "DS18B20",
+                        "pin_number": 3
+                    }
+                ],
+                "heater": {
+                    "type": "STANDARD",
+                    "pin_number": 4
+                }
+            }
+        },
+        {
+            "id": "mash_tun",
+            "name": "Mash Tun",
+            "temperature_controller": {
+                "sensors": [
+                    {
+                        "id": "mash_tun",
+                        "type": "DS18B20",
+                        "pin_number": 3
+                    },
+                    {
+                        "id": "rims_tube",
+                        "type": "DS18B20",
+                        "pin_number": 4
+                    }
+                ],
+                "heater": {
+                    "type": "PUMP_HEATER",
+                    "pin_number": 4,
+                    "pump": "pump_one"
+                }
+            }
+        },
+        {
+            "id": "boil",
+            "name": "Boil Kettle",
+            "temperature_controller": {
+                "sensors": [
+                    {
+                        "id": "boil",
+                        "type": "DS18B20",
+                        "pin_number": 3
+                    }
+                ],
+                "heater": {
+                    "type": "STANDARD",
+                    "pin_number": 4
+                }
+            }
+        }
+    ]
+}

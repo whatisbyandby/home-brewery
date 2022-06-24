@@ -11,12 +11,12 @@ class TemperatureFactoryError(Exception):
 
 
 
-def create_sensor(sensor_type):
+def create_sensor(sensor_config: dict):
 
-    if sensor_type == "MOCK":
+    if sensor_config.get("type") == "MOCK":
         return MockSensor()
 
-    if sensor_type == "DS18B20":
+    if sensor_config.get("type") == "DS18B20":
         return DS18B20Sensor()
     
     

@@ -12,17 +12,9 @@ app = FastAPI()
 logging.basicConfig(filename='./log/app.log', level=logging.DEBUG, filemode='w',
                     format='%(asctime)s [%(levelname)s-%(name)s] %(message)s')
 
-
-def initialize_context():
-    logging.info("Initializing Brewery Context")
-    return {
-        "pump_one": Pump("pump_one"),
-        "pump_two": Pump("pump_two"),
-        "mash_heater": Heater(),
-        "hlt_heater": Heater(),
-        "boil_heater": Heater(),
-        "step_controller": StepController()
-    }
+def get_config():
+    with open("./config/config.json", "r") as config_file:
+        return json.load(config_file)
 
 
 app.context = initialize_context()
