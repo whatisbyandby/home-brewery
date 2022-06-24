@@ -1,5 +1,6 @@
-from .sensor import Sensor
-from .heater import Heater
+from .temperature_sensor import TemperatureSensor
+from .cooler import Cooler
+from .heaters import Heater
 from enum import Enum
 
 
@@ -24,9 +25,16 @@ class TemperatureState(Enum):
 
 class TemperatureController:
 
-    def __init__(self, sensor: Sensor, set_temperature: float, mode: ControllerMode, temp_range: float = 1.0, heater: Heater = None, cooler=None):
+    def __init__(
+        self, 
+        sensor: TemperatureSensor,  
+        mode: ControllerMode = ControllerMode.HEATER, 
+        temp_range: float = 1.0, 
+        heater: Heater = None, 
+        cooler: Cooler = None
+    ):
         self._sensor = sensor
-        self._set_temperature = set_temperature
+        self._set_temperature = None
         self._mode = mode
         self._temp_range = temp_range
         self._current_temp = None

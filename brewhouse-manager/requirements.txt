@@ -4,3 +4,4 @@ uvicorn==0.17.6
 pytest==7.1.2
 coverage==6.4
 SQLAlchemy==1.4.37
+w1thermsensor==2.0.0

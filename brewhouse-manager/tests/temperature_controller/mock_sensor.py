@@ -1,9 +1,8 @@
 import random
-from app.temperature_controller.sensor import Sensor
 from typing import List
 
 
-class MockSensor(Sensor):
+class MockSensor:
 
     def __init__(self, readings: List[float] = [], temp_range=(60, 70)):
         self.readings = readings

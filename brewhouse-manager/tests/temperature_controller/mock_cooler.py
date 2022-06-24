@@ -1,6 +1,5 @@
-from app.temperature_controller.cooler import Cooler 
 
-class MockCooler(Cooler):
+class MockCooler:
 
     def __init(self):
         self.is_on = False
