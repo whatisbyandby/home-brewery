@@ -1,5 +1,6 @@
-from typing import Protocol
-from tests.temperature_controller.mock_sensor import MockSensor
+import random
+from typing import Protocol, List
+from .DS18B20_sensor import DS18B20Sensor
 
 class TemperatureSensor(Protocol):
 
@@ -8,6 +9,19 @@ class TemperatureSensor(Protocol):
 
 class TemperatureFactoryError(Exception):
     """Should be raised when unable to construct sensor"""
+
+
+class MockSensor:
+
+    def __init__(self, readings: List[float] = [], temp_range=(60, 70)):
+        self.readings = readings
+        self.temp_range = temp_range
+
+    def get_temperature(self):
+        if len(self.readings) > 0:
+            return self.readings.pop(0)
+        return random.randrange(self.temp_range[0], self.temp_range[1])
+
 
 
 

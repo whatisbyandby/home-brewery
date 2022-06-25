@@ -19,6 +19,22 @@ def create_pump(pump_config: dict):
 
     return StandardPump(name=name, pin_number=pin_number)
 
+from dataclasses import dataclass
+
+@dataclass
+class MockPump:
+
+    state: bool = False
+
+    def pump_on(self):
+        self.state = True
+
+    def pump_off(self):
+        self.state = False
+
+    def get_state(self):
+        return self.state
+
 class StandardPump:
 
     def __init__(self, name: str, pin_number: int):

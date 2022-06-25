@@ -1,5 +1,5 @@
 from app.brewery_controller.brewery_controller import BreweryController
-from tests.pump.mock_pump import MockPump
+from app.pump.pump import MockPump
 
 def test_run_step():
     

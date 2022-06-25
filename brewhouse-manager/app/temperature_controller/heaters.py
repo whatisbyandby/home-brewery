@@ -1,5 +1,8 @@
 from typing import Protocol
 
+class CreateHeaterError(Exception):
+    """Error raised when something went wrong creating heater"""
+
 class Heater(Protocol):
 
     def heater_on(self):
@@ -14,18 +17,18 @@ class Heater(Protocol):
 def create_heater(heater_config: dict) -> Heater:
 
     if heater_config.get("type") == "PUMP_HEATER":
-        return PumpHeater(control_pin=heater_config.get("pin_num"), pump=None)
+        return create_pump_heater(heater_config)
 
     if heater_config.get("type") == "STANDARD":
-        return StandardHeater(1)
+        return create_standard_heater(heater_config)
     
     if heater_config.get("type") == "MOCK":
-        return MockHeater()
-
-    
+        return create_mock_heater(heater_config)
 
     raise Exception("Unable to create heater")
-    
+
+def create_mock_heater(heater_config: dict):
+    return MockHeater() 
 
 class MockHeater:
     def __init__(self):
@@ -39,6 +42,9 @@ class MockHeater:
 
     def get_state(self):
         return self.is_on
+
+def create_standard_heater(heater_config: dict):
+    return StandardHeater(heater_config.get("pin_num"))
 
 class StandardHeater:
 
@@ -55,6 +61,13 @@ class StandardHeater:
     def get_state():
         raise Exception("Not Implemented")
 
+def create_pump_heater(heater_config: dict):
+
+    pump = heater_config.get("pump")
+
+    if pump is None:
+        raise CreateHeaterError("Pump is required when creating a pump heater")
+    return PumpHeater(control_pin=heater_config.get("pin_num"), pump=pump)
 
 class PumpHeater:
 

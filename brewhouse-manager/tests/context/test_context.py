@@ -20,3 +20,19 @@ def test_initialize_context():
 
     pump_one = pumps.get("pump_two") 
     assert pump_one is not None
+
+    kettles = context.get('kettles')
+
+    hlt = kettles.get("hlt")
+    assert hlt is not None
+    assert hlt.name == "Hot Liquor Tank"
+
+    assert hlt.temperature_controller is not None
+
+    mash_tun = kettles.get("mash_tun")
+    assert mash_tun is not None
+    assert mash_tun.name == "Mash Tun"
+
+    boil = kettles.get("boil")
+    assert boil is not None
+    assert boil.name == "Boil Kettle"

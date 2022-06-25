@@ -1,10 +1,12 @@
 {
     "pumps": [
         {
-            "name": "pump_one",
+            "id": "pump_one",
+            "name": "Pump One",
             "pin_number": 1
         },
         {
+            "id": "pump_two",
             "name": "pump_two",
             "pin_number": 2
         }
@@ -17,11 +19,12 @@
                 "sensors": [
                     {
                         "id": "hlt_temp",
-                        "type": "DS18B20",
+                        "type": "MOCK",
                         "pin_number": 3
                     }
                 ],
                 "heater": {
+                    "id": "htl_heater",
                     "type": "STANDARD",
                     "pin_number": 4
                 }
@@ -34,16 +37,17 @@
                 "sensors": [
                     {
                         "id": "mash_tun",
-                        "type": "DS18B20",
+                        "type": "MOCK",
                         "pin_number": 3
                     },
                     {
                         "id": "rims_tube",
-                        "type": "DS18B20",
+                        "type": "MOCK",
                         "pin_number": 4
                     }
                 ],
                 "heater": {
+                    "id": "rims_tube_heater",
                     "type": "PUMP_HEATER",
                     "pin_number": 4,
                     "pump": "pump_one"
@@ -57,11 +61,12 @@
                 "sensors": [
                     {
                         "id": "boil",
-                        "type": "DS18B20",
+                        "type": "MOCK",
                         "pin_number": 3
                     }
                 ],
                 "heater": {
+                    "id": "boil_heater",
                     "type": "STANDARD",
                     "pin_number": 4
                 }
