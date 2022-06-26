@@ -1,5 +1,6 @@
 import json
 from app.context import initialize_context
+from app.pump.pump import Pump
 
 
 def test_initialize_context():
@@ -13,26 +14,35 @@ def test_initialize_context():
 
     # Assert the pumps were initialized
     pumps = context.get("pumps")
+
     assert pumps is not None
+    assert len(pumps.keys()) == 2
 
-    pump_one = pumps.get("pump_one") 
-    assert pump_one is not None
+    water_pump = pumps.get("water_pump") 
+    assert water_pump is not None
 
-    pump_one = pumps.get("pump_two") 
-    assert pump_one is not None
+    wort_pump = pumps.get("wort_pump") 
+    assert wort_pump is not None
 
-    kettles = context.get('kettles')
+    temp_sensors = context.get("temp_sensors")
 
-    hlt = kettles.get("hlt")
-    assert hlt is not None
-    assert hlt.name == "Hot Liquor Tank"
+    assert temp_sensors is not None
+    assert len(temp_sensors.keys()) == 4
 
-    assert hlt.temperature_controller is not None
+    heaters = context.get("heaters")
+    assert heaters is not None
+    assert len(heaters.keys()) == 3
 
-    mash_tun = kettles.get("mash_tun")
-    assert mash_tun is not None
-    assert mash_tun.name == "Mash Tun"
+    # hlt = kettles.get("hlt")
+    # assert hlt is not None
+    # assert hlt.name == "Hot Liquor Tank"
 
-    boil = kettles.get("boil")
-    assert boil is not None
-    assert boil.name == "Boil Kettle"
+    # assert hlt.temperature_controller is not None
+
+    # mash_tun = kettles.get("mash_tun")
+    # assert mash_tun is not None
+    # assert mash_tun.name == "Mash Tun"
+
+    # boil = kettles.get("boil")
+    # assert boil is not None
+    # assert boil.name == "Boil Kettle"

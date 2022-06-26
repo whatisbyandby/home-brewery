@@ -1,6 +1,6 @@
 import random
 from typing import Protocol, List
-from .DS18B20_sensor import DS18B20Sensor
+from .DS18B20_sensor import create_DS18B20
 
 class TemperatureSensor(Protocol):
 
@@ -10,6 +10,8 @@ class TemperatureSensor(Protocol):
 class TemperatureFactoryError(Exception):
     """Should be raised when unable to construct sensor"""
 
+def create_mock_sensor():
+    return MockSensor()
 
 class MockSensor:
 
@@ -31,6 +33,6 @@ def create_sensor(sensor_config: dict):
         return MockSensor()
 
     if sensor_config.get("type") == "DS18B20":
-        return DS18B20Sensor()
+        return create_DS18B20()
     
     

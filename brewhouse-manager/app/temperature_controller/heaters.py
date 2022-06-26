@@ -14,10 +14,10 @@ class Heater(Protocol):
     def get_state(self):
         ...
 
-def create_heater(heater_config: dict) -> Heater:
+def create_heater(heater_config: dict, context: dict) -> Heater:
 
     if heater_config.get("type") == "PUMP_HEATER":
-        return create_pump_heater(heater_config)
+        return create_pump_heater(heater_config, context)
 
     if heater_config.get("type") == "STANDARD":
         return create_standard_heater(heater_config)
@@ -61,9 +61,9 @@ class StandardHeater:
     def get_state():
         raise Exception("Not Implemented")
 
-def create_pump_heater(heater_config: dict):
+def create_pump_heater(heater_config: dict, context: dict):
 
-    pump = heater_config.get("pump")
+    pump = context["pumps"][heater_config.get("pump")]
 
     if pump is None:
         raise CreateHeaterError("Pump is required when creating a pump heater")

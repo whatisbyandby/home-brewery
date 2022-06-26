@@ -1,7 +1,7 @@
 
 class MockCooler:
 
-    def __init(self):
+    def __init__(self):
         self.is_on = False
 
     def cooler_on(self):
@@ -9,6 +9,6 @@ class MockCooler:
 
     def cooler_off(self):
         self.is_on = False
-    
+
     def get_state(self):
         return self.is_on

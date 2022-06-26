@@ -26,14 +26,14 @@ class TemperatureState(Enum):
 class TemperatureController:
 
     def __init__(
-        self, 
-        sensor: TemperatureSensor,  
-        mode: ControllerMode = ControllerMode.HEATER, 
-        temp_range: float = 1.0, 
-        heater: Heater = None, 
+        self,
+        sensors: list[TemperatureSensor],
+        mode: ControllerMode = ControllerMode.HEATER,
+        temp_range: float = 1.0,
+        heater: Heater = None,
         cooler: Cooler = None
     ):
-        self._sensor = sensor
+        self._sensors = sensors
         self._set_temperature = None
         self._mode = mode
         self._temp_range = temp_range
@@ -50,7 +50,13 @@ class TemperatureController:
                 "Error creating the controller, mode is set to cooler, but no cooler is provided")
 
     def get_current_temperature(self):
-        return self._sensor.get_temperature()
+        readings = 0
+        for sensor in self._sensors:
+            readings += sensor.get_temperature()
+
+        average = readings / len(self._sensors)
+
+        return average
 
     def compare_temperature(self) -> TemperatureState:
         self._current_temp = self.get_current_temperature()

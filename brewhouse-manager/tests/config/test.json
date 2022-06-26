@@ -1,76 +1,85 @@
 {
-    "pumps": [
-        {
-            "id": "pump_one",
-            "name": "Pump One",
+    "pumps": {
+        "water_pump": {
+            "name": "water_pump",
             "pin_number": 1
         },
-        {
-            "id": "pump_two",
-            "name": "pump_two",
+        "wort_pump": {
+            "name": "wort_pump",
             "pin_number": 2
         }
-    ],
-    "kettles": [
-        {
+    },
+    "temp_sensors": {
+        "hlt_temp": {
+            "id": "hlt_temp",
+            "type": "MOCK",
+            "pin_number": 3
+        },
+        "mash_temp": {
+            "id": "mash_temp",
+            "type": "MOCK",
+            "pin_number": 4
+        },
+        "rims_temp": {
+            "id": "rims_temp",
+            "type": "MOCK",
+            "pin_number": 5
+        },
+        "boil_temp": {
+            "id": "boil_temp",
+            "type": "MOCK",
+            "pin_number": 6
+        }
+    },
+    "heaters": {
+        "hlt_heater": {
+            "id": "htl_heater",
+            "type": "STANDARD",
+            "pin_number": 7
+        },
+        "rims_heater": {
+            "id": "htl_heater",
+            "type": "PUMP_HEATER",
+            "pump": "wort_pump",
+            "pin_number": 8
+        },
+        "boil_heater": {
+            "id": "boil_heater",
+            "type": "STANDARD",
+            "pin_number": 9
+        }
+    },
+    "kettles": {
+        "hlt": {
             "id": "hlt",
             "name": "Hot Liquor Tank",
             "temperature_controller": {
                 "sensors": [
-                    {
-                        "id": "hlt_temp",
-                        "type": "MOCK",
-                        "pin_number": 3
-                    }
+                    "hlt_temp"
                 ],
-                "heater": {
-                    "id": "htl_heater",
-                    "type": "STANDARD",
-                    "pin_number": 4
-                }
+                "heater": "hlt_heater"
             }
         },
-        {
+        "mash_tun": {
             "id": "mash_tun",
             "name": "Mash Tun",
             "temperature_controller": {
                 "sensors": [
-                    {
-                        "id": "mash_tun",
-                        "type": "MOCK",
-                        "pin_number": 3
-                    },
-                    {
-                        "id": "rims_tube",
-                        "type": "MOCK",
-                        "pin_number": 4
-                    }
+                    "mash_temp",
+                    "rims_temp"
                 ],
-                "heater": {
-                    "id": "rims_tube_heater",
-                    "type": "PUMP_HEATER",
-                    "pin_number": 4,
-                    "pump": "pump_one"
-                }
+                "heater": "rims_heater"
             }
         },
-        {
+        "boil": {
             "id": "boil",
             "name": "Boil Kettle",
             "temperature_controller": {
                 "sensors": [
-                    {
-                        "id": "boil",
-                        "type": "MOCK",
-                        "pin_number": 3
-                    }
+                    "boil_temp"
                 ],
-                "heater": {
-                    "id": "boil_heater",
-                    "type": "STANDARD",
-                    "pin_number": 4
-                }
+                "heater": "boil_heater"
             }
         }
-    ]
+    }
 }
