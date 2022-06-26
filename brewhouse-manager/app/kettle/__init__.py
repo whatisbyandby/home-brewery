@@ -1,14 +1,4 @@
 from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode
-from app.temperature_controller.heaters import create_heater
-from app.temperature_controller.temperature_sensor import create_sensor
-from dataclasses import dataclass
-
-
-@dataclass
-class KettleConfig:
-    name: str
-    sensor_config: dict
-    heater_config: dict
 
 
 class Kettle:
@@ -20,8 +10,8 @@ class Kettle:
     def get_set_temp(self):
         return self.temperature_controller.get_set_temp()
 
-    def update_set_temp(self):
-        pass
+    def update_set_temp(self, new_set_temp: float):
+        self.temperature_controller.update_set_temp(new_set_temp=new_set_temp)
 
 
 def create_kettle(kettle_config: dict, context: dict) -> Kettle:

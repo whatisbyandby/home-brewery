@@ -1,7 +1,7 @@
 from app.pump.pump import create_pump
 from app.temperature_controller.temperature_sensor import create_sensor
 from app.temperature_controller.heaters import create_heater
-from app.kettle import create_kettle, KettleConfig
+from app.kettle import create_kettle
 
 
 def initialize_context(config) -> dict:

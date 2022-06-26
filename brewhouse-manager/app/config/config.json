@@ -12,22 +12,22 @@
     "temp_sensors": {
         "hlt_temp": {
             "id": "hlt_temp",
-            "type": "DS18B20",
+            "type": "MOCK",
             "pin_number": 3
         },
         "mash_temp": {
             "id": "mash_temp",
-            "type": "DS18B20",
+            "type": "MOCK",
             "pin_number": 4
         },
         "rims_temp": {
             "id": "rims_temp",
-            "type": "DS18B20",
+            "type": "MOCK",
             "pin_number": 5
         },
         "boil_temp": {
             "id": "boil_temp",
-            "type": "DS18B20",
+            "type": "MOCK",
             "pin_number": 6
         }
     },
@@ -40,7 +40,8 @@
         "rims_heater": {
             "id": "htl_heater",
             "type": "PUMP_HEATER",
-            "pin_number": 8
+            "pin_number": 8,
+            "pump": "wort"
         },
         "boil_heater": {
             "id": "boil_heater",

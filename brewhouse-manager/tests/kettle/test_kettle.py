@@ -1,4 +1,4 @@
-from app.kettle import create_kettle, Kettle, KettleConfig
+from app.kettle import create_kettle, Kettle
 from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode
 from app.temperature_controller.heaters import MockHeater
 from app.temperature_controller.temperature_sensor import MockSensor
