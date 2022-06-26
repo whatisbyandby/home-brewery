@@ -11,17 +11,16 @@ def test_initialize_context():
 
     context = initialize_context(config)
 
-
     # Assert the pumps were initialized
     pumps = context.get("pumps")
 
     assert pumps is not None
     assert len(pumps.keys()) == 2
 
-    water_pump = pumps.get("water_pump") 
+    water_pump = pumps.get("water_pump")
     assert water_pump is not None
 
-    wort_pump = pumps.get("wort_pump") 
+    wort_pump = pumps.get("wort_pump")
     assert wort_pump is not None
 
     temp_sensors = context.get("temp_sensors")
@@ -33,16 +32,21 @@ def test_initialize_context():
     assert heaters is not None
     assert len(heaters.keys()) == 3
 
-    # hlt = kettles.get("hlt")
-    # assert hlt is not None
-    # assert hlt.name == "Hot Liquor Tank"
+    kettles = context.get("kettles")
+    hlt = kettles.get("hlt")
+    assert hlt is not None
+    assert hlt.name == "Hot Liquor Tank"
 
-    # assert hlt.temperature_controller is not None
+    assert hlt.temperature_controller is not None
 
-    # mash_tun = kettles.get("mash_tun")
-    # assert mash_tun is not None
-    # assert mash_tun.name == "Mash Tun"
+    mash_tun = kettles.get("mash_tun")
+    assert mash_tun is not None
+    assert mash_tun.name == "Mash Tun"
 
-    # boil = kettles.get("boil")
-    # assert boil is not None
-    # assert boil.name == "Boil Kettle"
+    assert mash_tun.temperature_controller is not None
+
+    boil = kettles.get("boil")
+    assert boil is not None
+    assert boil.name == "Boil Kettle"
+
+    assert boil.temperature_controller is not None
