@@ -13,6 +13,7 @@ def initialize_context(config) -> dict:
 
     # Initialize pumps
     for key, value in config.get("pumps").items():
+        print(value)
         context["pumps"][key] = create_pump(value)
 
     # Initalize Sensors

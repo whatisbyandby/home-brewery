@@ -2,11 +2,19 @@
     "pumps": {
         "water": {
             "name": "water",
-            "pin_number": 1
+            "pump_type": "STANDARD",
+            "pin": {
+                "pin_num": 18,
+                "pin_type": "GPIO"
+            }
         },
         "wort": {
             "name": "wort",
-            "pin_number": 2
+            "pump_type": "STANDARD",
+            "pin": {
+                "pin_num": 19,
+                "pin_type": "GPIO"
+            }
         }
     },
     "temp_sensors": {
@@ -35,18 +43,27 @@
         "hlt_heater": {
             "id": "htl_heater",
             "type": "STANDARD",
-            "pin_number": 7
+            "pin": {
+                "pin_num": 24,
+                "pin_type": "GPIO"
+            }
         },
         "rims_heater": {
             "id": "htl_heater",
             "type": "PUMP_HEATER",
-            "pin_number": 8,
+            "pin": {
+                "pin_num": 25,
+                "pin_type": "GPIO"
+            },
             "pump": "wort"
         },
         "boil_heater": {
             "id": "boil_heater",
             "type": "STANDARD",
-            "pin_number": 9
+            "pin": {
+                "pin_num": 26,
+                "pin_type": "GPIO"
+            }
         }
     },
     "kettles": {
