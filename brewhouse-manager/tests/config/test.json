@@ -1,4 +1,5 @@
 {
+    "plugins": [],
     "pumps": {
         "water_pump": {
             "name": "water",

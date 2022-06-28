@@ -1,18 +1,12 @@
-from typing import Protocol
+from typing import Protocol, Callable, Any
 from pydantic.dataclasses import dataclass
-from app.pins.pin import Pin, create_pin
-
-
-class CreatePumpError(Exception):
-    """Should be raised when there is a problem creating a pump"""
-
-
-@dataclass
-class PumpStateRequest:
-    new_state: bool
+from app.pins.pin import Pin
 
 
 class Pump(Protocol):
+
+    def __init__(self, name: str, pin: Pin):
+        """Should Initalize the new Pump"""
 
     def set_pump_state(self, new_state: bool) -> bool:
         """Should set the state of the pump"""
@@ -27,24 +21,52 @@ class Pump(Protocol):
         """Returns the current state of the pump"""
 
 
-def create_pump(pump_config: dict):
+pump_creation_funcs: dict[str, Callable[..., Pump]] = {}
 
-    pump_type = pump_config.get("pump_type")
 
-    if pump_type == "STANDARD":
-        name = pump_config.get("name")
-        pin_config = pump_config.get("pin")
-        pin = create_pin(pin_config)
-        return StandardPump(name=name, pin=pin)
+def register(pump_type: str, creation_func: Callable[..., Pump]):
+    """Register a new pump type"""
+    pump_creation_funcs[pump_type] = creation_func
 
-    if pump_type == "MOCK":
-        return MockPump()
 
-    raise CreatePumpError(f"Unable to create pump with type: {pump_type}")
+def unregister(pump_type: str):
+    """Unregister a pump type"""
+    pump_creation_funcs.pop(pump_type, None)
+
+
+def create(arguments: dict[str, Any]) -> Pump:
+    """Create a pump of a specific type, given a dictionary of arguments"""
+    args_copy = arguments.copy()
+    pump_type = args_copy.pop("pump_type")
+    try:
+        creation_func = pump_creation_funcs[pump_type]
+        return creation_func(**args_copy)
+    except KeyError:
+        raise ValueError(f"Unknown Pump Type {pump_type!r}")
+
+
+class CreatePumpError(Exception):
+    """Should be raised when there is a problem creating a pump"""
+
+
+@dataclass
+class PumpStateRequest:
+    new_state: bool
+
+
+def initalize_pumps(config, context: dict[str, Any]):
+    register("MOCK", MockPump)
+    register("STANDARD", StandardPump)
+    pumps = {}
+    for pump_name, pump_config in config["pumps"].items():
+        pin = context["pins"]
+        print(pin)
+        pumps[pump_name] = create({**pump_config, "pin": pin})
+    return pumps
 
 
 class MockPump:
-    def __init__(self) -> None:
+    def __init__(self, name: str = "Mock Pump", pin: Pin = None) -> None:
         self.state = False
 
     def set_pump_state(self, new_state: bool) -> bool:

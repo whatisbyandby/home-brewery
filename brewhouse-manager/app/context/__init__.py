@@ -1,20 +1,21 @@
-from app.pump.pump import create_pump
+from app.pump.pump import initalize_pumps
+from app.pins.pin import initalize_pins
+from .loader import load_plugins
 from app.temperature_controller.temperature_sensor import create_sensor
 from app.temperature_controller.heaters import create_heater
 from app.kettle import create_kettle
 
 
 def initialize_context(config) -> dict:
+
+    load_plugins(config["plugins"])
+
     context = {}
-    context["pumps"] = {}
+    context["pins"] = initalize_pins(config)
+    context["pumps"] = initalize_pumps(config, context=context)
     context["temp_sensors"] = {}
     context["heaters"] = {}
     context["kettles"] = {}
-
-    # Initialize pumps
-    for key, value in config.get("pumps").items():
-        print(value)
-        context["pumps"][key] = create_pump(value)
 
     # Initalize Sensors
     for key, value in config.get("temp_sensors").items():

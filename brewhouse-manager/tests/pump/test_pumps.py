@@ -1,34 +1,46 @@
 import pytest
-from app.pump.pump import CreatePumpError, create_pump, MockPump, StandardPump
-from app.pins.pin import MockPin
+from app.pump.pump import create,  StandardPump, initalize_pumps, register
+from app.pins.pin import MockPin, Pin
 
 
-def test_create_pump():
+def test_create():
+    context = {
 
-    pump_config = {
-        "name": "water",
-        "pump_type": "MOCK",
-        "pin": {
-            "pin_num": 18,
-            "pin_type": "MOCK"
+    }
+
+    register("STANDARD", StandardPump)
+
+    args = {
+        "pump_type": "STANDARD",
+        "name": "Standard Pump",
+        "pin": MockPin(pin_num=1)
+    }
+
+    pump = create(args)
+    assert pump is not None
+    assert isinstance(pump, StandardPump)
+    assert isinstance(pump.pin, Pin)
+
+
+def test_initalize_pumps():
+
+    config = {
+        "pumps": {
+            "water_pump": {
+                "pump_type": "MOCK",
+                "pin": "water_pump_pin"
+            }
         }
     }
 
-    mock_pump = create_pump(pump_config=pump_config)
-    assert mock_pump is not None
-    assert isinstance(mock_pump, MockPump)
-
-    pump_config = {
-        "name": "water",
-        "pump_type": "NOT_REAL",
-        "pin": {
-            "pin_num": 18,
-            "pin_type": "MOCK"
+    context = {
+        "pins": {
+            "water_pump_pin": MockPin(pin_num=1)
         }
     }
 
-    with pytest.raises(CreatePumpError):
-        mock_pump = create_pump(pump_config=pump_config)
+    pumps = initalize_pumps(config=config, context=context)
+    assert pumps is not None
 
 
 def test_standard_pump():
