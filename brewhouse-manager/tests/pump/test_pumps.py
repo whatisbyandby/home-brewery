@@ -33,14 +33,21 @@ def test_initalize_pumps():
         }
     }
 
+    test_pin = MockPin()
     context = {
         "pins": {
-            "water_pump_pin": MockPin(pin_num=1)
+            "water_pump_pin": test_pin
         }
     }
 
     pumps = initalize_pumps(config=config, context=context)
     assert pumps is not None
+    assert len(pumps) == 1
+    water_pump = pumps.get("water_pump")
+    assert water_pump is not None
+    assert water_pump.pin is not None
+    assert water_pump.pin == test_pin
+    assert isinstance(water_pump.pin, Pin)
 
 
 def test_standard_pump():

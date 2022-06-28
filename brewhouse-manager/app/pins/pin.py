@@ -60,7 +60,7 @@ def start_pins(warnings_enabled: bool = False):
 
 class MockPin():
 
-    def __init__(self, pin_num) -> None:
+    def __init__(self, pin_num: int = 1) -> None:
         self.pin_num = pin_num
         self.pin_state = False
 

@@ -59,8 +59,7 @@ def initalize_pumps(config, context: dict[str, Any]):
     register("STANDARD", StandardPump)
     pumps = {}
     for pump_name, pump_config in config["pumps"].items():
-        pin = context["pins"]
-        print(pin)
+        pin = context["pins"][pump_config.get("pin")]
         pumps[pump_name] = create({**pump_config, "pin": pin})
     return pumps
 
@@ -68,6 +67,8 @@ def initalize_pumps(config, context: dict[str, Any]):
 class MockPump:
     def __init__(self, name: str = "Mock Pump", pin: Pin = None) -> None:
         self.state = False
+        self.name = name
+        self.pin = pin
 
     def set_pump_state(self, new_state: bool) -> bool:
         self.state = new_state
