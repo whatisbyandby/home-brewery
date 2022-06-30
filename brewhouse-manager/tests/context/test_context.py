@@ -1,6 +1,4 @@
-import json
 from app.context import initialize_context
-from app.pump.pump import Pump
 
 
 def test_initialize_context():

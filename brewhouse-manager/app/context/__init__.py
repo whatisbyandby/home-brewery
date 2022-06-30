@@ -17,10 +17,6 @@ def initialize_context(config) -> dict:
     context["heaters"] = {}
     context["kettles"] = {}
 
-    # Initalize Sensors
-    for key, value in config.get("temp_sensors").items():
-        context["temp_sensors"][key] = create_sensor(value)
-
     # Initalize Heaters
     for key, value in config.get("heaters").items():
         context["heaters"][key] = create_heater(value, context)
