@@ -25,4 +25,4 @@ jobs:
       - name: Run Pytest
         working-directory: ./brewhouse-manager
         run: |
-          pytest
+          pytest --ignore=./tests/on_device

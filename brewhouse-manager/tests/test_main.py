@@ -1,58 +1,58 @@
-from fastapi.testclient import TestClient
-from app.app import create_server
-from app.brewery_controller.brewery_controller import KettleUpdate
-from dataclasses import asdict
-from app.pump.pump import PumpStateRequest
+# from fastapi.testclient import TestClient
+# from app.app import create_server
+# from app.brewery_controller.brewery_controller import KettleUpdate
+# from dataclasses import asdict
+# from app.pump.pump import PumpStateRequest
 
-context = {"pumps": {}, "kettles": {"hlt": MockKettle()}}
+# context = {"pumps": {}, "kettles": {"hlt": MockKettle()}}
 
-app = create_server(context=context)
+# app = create_server(context=context)
 
-client = TestClient(app)
-
-
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"Hello": "World"}
+# client = TestClient(app)
 
 
-"""Test the Brewhouse Routes"""
+# def test_read_main():
+#     response = client.get("/")
+#     assert response.status_code == 200
+#     assert response.json() == {"Hello": "World"}
 
 
-def test_get_brewhouse_state():
-    response = client.get("/brewhouse/state")
-    assert response.status_code == 200
+# """Test the Brewhouse Routes"""
 
 
-def test_get_brewhouse_kettles():
-    response = client.get("/brewhouse/kettles")
-    assert response.status_code == 200
+# def test_get_brewhouse_state():
+#     response = client.get("/brewhouse/state")
+#     assert response.status_code == 200
 
 
-def test_get_brewhouse_kettles_details():
-    response = client.get("/brewhouse/kettles/hlt")
-    assert response.status_code == 200
+# def test_get_brewhouse_kettles():
+#     response = client.get("/brewhouse/kettles")
+#     assert response.status_code == 200
 
 
-def test_get_brewhouse_kettles_details():
-
-    kettle_update = KettleUpdate(set_temperature=90.0)
-
-    response = client.put("/brewhouse/kettles/hlt", json=asdict(kettle_update))
-    assert response.status_code == 200
+# def test_get_brewhouse_kettles_details():
+#     response = client.get("/brewhouse/kettles/hlt")
+#     assert response.status_code == 200
 
 
-def test_get_pumps():
-    response = client.get("/brewhouse/pumps")
-    assert response.status_code == 200
-    assert response.json() is not None
+# def test_get_brewhouse_kettles_details():
+
+#     kettle_update = KettleUpdate(set_temperature=90.0)
+
+#     response = client.put("/brewhouse/kettles/hlt", json=asdict(kettle_update))
+#     assert response.status_code == 200
 
 
-def test_update_pumps():
+# def test_get_pumps():
+#     response = client.get("/brewhouse/pumps")
+#     assert response.status_code == 200
+#     assert response.json() is not None
 
-    pump_state = PumpStateRequest(new_state=True)
 
-    response = client.put("/brewhouse/pumps/water", json=asdict(pump_state))
-    assert response.status_code == 200
-    assert response.json() is not None
+# def test_update_pumps():
+
+#     pump_state = PumpStateRequest(new_state=True)
+
+#     response = client.put("/brewhouse/pumps/water", json=asdict(pump_state))
+#     assert response.status_code == 200
+#     assert response.json() is not None
