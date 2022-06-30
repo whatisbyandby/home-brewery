@@ -1,4 +1,5 @@
-from app.pump.factory import register
+from app.pump.pump import register
+
 
 """Pump extension that adds a special pump"""
 

@@ -1,6 +1,6 @@
 from app.temperature_controller.temperature_sensor import MockSensor
 from app.temperature_controller.heaters import MockHeater
-from ..temperature_controller.mock_cooler import MockCooler
+from app.temperature_controller.cooler import MockCooler
 from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode, TemperatureState, ControllerState
 
 
