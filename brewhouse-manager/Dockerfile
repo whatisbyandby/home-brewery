@@ -1,22 +1,22 @@
 # 
-FROM python:3.10
+FROM python:3.9
 
 # 
 WORKDIR /code
 
 # 
-COPY ./requirements/requirements.txt /code/requirements.txt
-COPY ./requirements/test.txt /code/test.txt
+COPY ./requirements.txt /code/requirements.txt
 
 
 # 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN pip install -r /code/test.txt
 
 # 
 COPY ./app /code/app
-COPY ./tests /code/tests
+
+
 COPY ./log /code/log
 
 
-CMD ["/bin/bash"]
+# 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
