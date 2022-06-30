@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 from typing import Protocol, Callable, runtime_checkable
 
 
@@ -43,7 +42,6 @@ def create(arguments: dict) -> Pin:
 
 def initalize_pins(config: dict) -> dict[str, Pin]:
     register("MOCK", MockPin)
-    register("GPIO", GPIOPin)
 
     pin_ctx: dict[str, Pin] = {}
 
@@ -51,11 +49,6 @@ def initalize_pins(config: dict) -> dict[str, Pin]:
     for key, pin_config in pins.items():
         pin_ctx[key] = create(pin_config)
     return pin_ctx
-
-
-def start_pins(warnings_enabled: bool = False):
-    GPIO.setwarnings(warnings_enabled)
-    GPIO.setmode(GPIO.BCM)
 
 
 class MockPin():
@@ -78,25 +71,3 @@ class MockPin():
 
     def get_state(self) -> bool:
         return self.pin_state
-
-
-class GPIOPin():
-
-    def __init__(self, pin_num):
-        self.pin_num = pin_num
-        GPIO.setup(pin_num, GPIO.OUT)
-
-    def set_pin_state(self, new_state: bool) -> bool:
-        GPIO.output(self.pin_num, new_state)
-        return GPIO.input(self.pin_num)
-
-    def pin_on(self) -> bool:
-        print(GPIO.output(self.pin_num, GPIO.HIGH))
-        return GPIO.input(self.pin_num)
-
-    def pin_off(self) -> bool:
-        GPIO.output(self.pin_num, GPIO.LOW)
-        return GPIO.input(self.pin_num)
-
-    def get_state(self) -> bool:
-        return GPIO.input(self.pin_num)

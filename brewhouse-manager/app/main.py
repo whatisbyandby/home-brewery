@@ -21,7 +21,6 @@ def get_config(path: str):
 
 config_file = os.getenv("CONFIG_FILE")
 config = get_config(config_file)
-start_pins()
 context = initialize_context(config=config)
 
 app = create_server(context=context)
