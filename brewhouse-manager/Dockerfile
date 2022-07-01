@@ -19,4 +19,4 @@ COPY ./log /code/log
 
 
 # 
-CMD ["pytest", "--ignore=./tests/on_device"]
+CMD ["pytest", "--cov=app", "--cov-report=html:cover/cov_html", "--ignore=./tests/on_device"]
