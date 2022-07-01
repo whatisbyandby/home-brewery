@@ -15,7 +15,7 @@ RUN pip install -r /code/test.txt
 # 
 COPY ./app /code/app
 COPY ./tests /code/tests
-COPY ./log /code/log
+
 
 
 # 
