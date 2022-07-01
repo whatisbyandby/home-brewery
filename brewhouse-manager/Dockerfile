@@ -1,24 +1,28 @@
-# 
-FROM python:3.10
+#############################################
+# Base container with all necessary deps
+FROM python:3.10 AS base
 
-# 
-WORKDIR /code
+ENV HOME=/code 
+WORKDIR ${HOME}
 
-# 
-COPY ./requirements/requirements.txt /code/requirements.txt
-COPY ./requirements/test.txt /code/test.txt
-
-# 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN pip install -r /code/test.txt
-
-# 
-COPY ./app /code/app
-COPY ./tests /code/tests
+COPY ./requirements/requirements.txt ./requirements/requirements.txt
+RUN pip install -r ./requirements/requirements.txt
+RUN mkdir ./log
+COPY ./app ./app
 
 
+#############################################
+# Test container from a common base
+FROM base AS test
+# Same as in the base image but this time we also install the --dev packages
+COPY ./requirements/test.txt ./requirements/test.txt
+RUN pip install -r ./requirements/test.txt
+COPY ./tests ./tests
 
-# 
-CMD ["pytest", "--cov=app", "--cov-report=html:cover/cov_html", "--ignore=./tests/on_device"]
 
-
+#############################################
+# Final container with the app
+FROM base AS production
+# Only copy the ready app dir from the live step
+COPY  ./requirements/device.txt ./requirements/device.txt
+RUN pip install -r ./requirements/device.txt
