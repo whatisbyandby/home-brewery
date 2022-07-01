@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,3 +25,7 @@ jobs:
         working-directory: ./brewhouse-manager
         run: |
           pytest --ignore=./tests/on_device
+      - name: Docker Build
+        working-directory: ./brewhouse-manager
+        run: |
+          docker build -t whatisbyandby1/brewhouse-manager:latest .

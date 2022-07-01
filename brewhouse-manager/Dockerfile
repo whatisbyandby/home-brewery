@@ -20,3 +20,5 @@ COPY ./log /code/log
 
 # 
 CMD ["pytest", "--cov=app", "--cov-report=html:cover/cov_html", "--ignore=./tests/on_device"]
+
+
