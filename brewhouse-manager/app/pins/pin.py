@@ -34,7 +34,6 @@ def create(arguments: dict) -> Pin:
     pin_type = args_copy.pop("pin_type")
     try:
         creation_func = pin_creation_func[pin_type]
-        print(args_copy)
         return creation_func(**args_copy)
     except KeyError:
         raise ValueError(f"Unknown Pin Type {pin_type!r}")

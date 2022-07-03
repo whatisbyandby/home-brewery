@@ -1,5 +1,4 @@
 from app.pins.pin import MockPin, initalize_pins
-import time
 import pytest
 
 
@@ -19,7 +18,6 @@ def test_initalize_pins_valid():
     assert isinstance(pins, dict)
     assert len(pins.items()) == 1
     assert pins.get("water_pump_pin") is not None
-    print(pins.get("water_pump_pin"))
     assert isinstance(pins.get("water_pump_pin"), MockPin)
 
 

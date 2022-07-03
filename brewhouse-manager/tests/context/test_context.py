@@ -3,16 +3,7 @@ from app.context import initialize_context
 # Some Comments to make sure the tests run
 
 
-def test_initialize_context():
-
-    config = {
-        "plugins": {},
-        "pins": {},
-        "pumps": {},
-        "temp_sensors": {},
-        "heaters": {},
-        "kettles": {}
-    }
+def test_initialize_context(config):
 
     context = initialize_context(config)
 

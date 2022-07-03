@@ -14,7 +14,4 @@ def create_server(context):
     app.include_router(brewhouse_router)
     app.include_router(pump_router)
 
-    @app.get("/")
-    async def home(request: Request):
-        return {"Hello": "World"}
     return app

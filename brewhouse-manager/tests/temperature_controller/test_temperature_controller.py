@@ -14,7 +14,7 @@ def test_temperature_controller():
 
 
 def test_compare_temperature():
-    sensors = [MockSensor([50.0, 59.1, 60.1, 61.0])]
+    sensors = [MockSensor(readings=[50.0, 59.1, 60.1, 61.0])]
     mock_heater = MockHeater()
 
     temp_controller = TemperatureController(
@@ -36,7 +36,7 @@ def test_compare_temperature():
 
 
 def test_tick():
-    heater_sensor = [MockSensor([50.0, 59.9, 60.0, 60.1])]
+    heater_sensor = [MockSensor(readings=[50.0, 59.9, 60.0, 60.1])]
     mock_heater = MockHeater()
 
     heater_temp_controller = TemperatureController(
@@ -59,7 +59,7 @@ def test_tick():
         current_state = heater_temp_controller.tick()
         assert_cases(case, current_state)
 
-    cooler_sensor = [MockSensor([70.0, 60.1, 59.9, 59.0])]
+    cooler_sensor = [MockSensor(readings=[70.0, 60.1, 59.9, 59.0])]
     mock_cooler = MockCooler()
     cooler_temp_controller = TemperatureController(
         cooler_sensor, mode=ControllerMode.COOLER, cooler=mock_cooler)

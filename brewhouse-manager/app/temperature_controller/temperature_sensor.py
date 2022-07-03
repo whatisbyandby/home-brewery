@@ -42,13 +42,15 @@ def initalize_temp_sensors(config: dict[str, Any]):
 
     sensors = {}
     for sensor_name, sensor_config in config["temp_sensors"].items():
-        sensors[sensor_name] = create(**sensor_config)
+
+        sensors[sensor_name] = create(sensor_config)
     return sensors
 
 
 class MockSensor:
 
-    def __init__(self, readings: List[float] = [], temp_range=(60, 70)):
+    def __init__(self, pin_number: int = 1, readings: List[float] = [], temp_range=(60, 70)):
+        self.pin_number = pin_number
         self.readings = readings
         self.temp_range = temp_range
 
