@@ -22,11 +22,17 @@ COPY ./tests ./tests
 #############################################
 # Test container from a common base
 FROM test AS development
-# Same as in the base image but this time we also install the --dev packages
-COPY ./requirements/test.txt ./requirements/test.txt
-RUN pip install -r ./requirements/test.txt
-COPY ./tests ./tests
+COPY ./plugins /code/plugins
+COPY ./requirements/device.txt ./requirements/device.txt
+RUN pip install -r ./requirements/device.txt
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+
+
+#############################################
+FROM test as test_plugins
+COPY ./plugins /code/plugins
+COPY ./requirements/device.txt ./requirements/device.txt
+RUN pip install -r ./requirements/device.txt
 
 
 #############################################

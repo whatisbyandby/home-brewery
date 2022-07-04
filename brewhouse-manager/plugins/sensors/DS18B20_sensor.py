@@ -11,3 +11,4 @@ class DS18B20Sensor:
 
 
 def initalize():
+    pass

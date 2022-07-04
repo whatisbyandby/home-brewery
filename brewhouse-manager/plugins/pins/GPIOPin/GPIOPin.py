@@ -1,3 +1,4 @@
+from app.pins.pin import register
 import RPi.GPIO as GPIO
 
 
@@ -10,6 +11,7 @@ class GPIOPin():
 
     def __init__(self, pin_num):
         self.pin_num = pin_num
+        print(pin_num)
         GPIO.setup(pin_num, GPIO.OUT)
 
     def set_pin_state(self, new_state: bool) -> bool:
@@ -26,3 +28,10 @@ class GPIOPin():
 
     def get_state(self) -> bool:
         return GPIO.input(self.pin_num)
+
+
+def initalize():
+    mode = GPIO.getmode()
+    if mode is None:
+        start_pins()
+    register("GPIO", GPIOPin)

@@ -1,13 +1,15 @@
 {
-    "plugins": [],
+    "plugins": [
+        "plugins.pins.GPIO"
+    ],
     "pins": {
         "water_pump_pin": {
             "pin_num": 18,
-            "pin_type": "MOCK"
+            "pin_type": "GPIO"
         },
         "wort_pump_pin": {
-            "pin_num": 18,
-            "pin_type": "MOCK"
+            "pin_num": 24,
+            "pin_type": "GPIO"
         }
     },
     "pumps": {
@@ -19,7 +21,7 @@
         "wort_pump": {
             "name": "wort",
             "pump_type": "MOCK",
-            "pin": "water_pump_pin"
+            "pin": "wort_pump_pin"
         }
     },
     "temp_sensors": {

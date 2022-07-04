@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-from app.pins.GPIOPin import GPIOPin, start_pins
+from .GPIOPin import GPIOPin, start_pins
 
 
 def test_gpio_pin():
