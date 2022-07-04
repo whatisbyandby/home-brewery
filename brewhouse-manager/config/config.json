@@ -1,6 +1,6 @@
 {
     "plugins": [
-        "plugins.pins.GPIO"
+        "plugins.pins.GPIOPin"
     ],
     "pins": {
         "water_pump_pin": {
@@ -14,13 +14,13 @@
     },
     "pumps": {
         "water_pump": {
-            "name": "water",
-            "pump_type": "MOCK",
+            "name": "water_pump",
+            "pump_type": "STANDARD",
             "pin": "water_pump_pin"
         },
         "wort_pump": {
-            "name": "wort",
-            "pump_type": "MOCK",
+            "name": "wort_pump",
+            "pump_type": "STANDARD",
             "pin": "wort_pump_pin"
         }
     },

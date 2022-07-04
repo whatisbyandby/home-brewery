@@ -11,6 +11,7 @@ COPY ./requirements/requirements.txt ./requirements/requirements.txt
 RUN pip install -r ./requirements/requirements.txt
 RUN mkdir ./log
 COPY ./app ./app
+COPY ./config ./config
 
 
 #############################################
@@ -24,9 +25,9 @@ COPY ./tests ./tests
 #############################################
 # Test container from a common base
 FROM test AS development
-COPY ./plugins /code/plugins
 COPY ./requirements/device.txt ./requirements/device.txt
 RUN pip install -r ./requirements/device.txt
+COPY ./plugins ./plugins
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 
 
