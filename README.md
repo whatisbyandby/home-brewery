@@ -2,7 +2,7 @@
 
 ## Brewhouse Manager
 
-![example workflow](https://github.com/whatisbyandby/home-brewery/actions/workflows/tests.yaml/badge.svg)
+![example workflow](https://github.com/whatisbyandby/home-brewery/actions/workflows/brewhouse-manager.yaml/badge.svg)
 
 The brewhouse manager is a Python application designed to run on the Raspberry Pi that controls the hotside of the brewing process
 
