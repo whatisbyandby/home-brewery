@@ -2,6 +2,8 @@
 # Base container with all necessary deps
 FROM python:3.10 AS base
 
+RUN pip install --upgrade pip
+
 ENV HOME=/code 
 WORKDIR ${HOME}
 

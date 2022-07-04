@@ -13,13 +13,12 @@ logging.basicConfig(filename='./log/app.log', level=logging.DEBUG, filemode='w',
                     format='%(asctime)s [%(levelname)s-%(name)s] %(message)s')
 
 
-def get_config(path: str):
-    with open("./app/config/config.json", "r") as config_file:
+def get_config():
+    with open("./config/config.json", "r") as config_file:
         return json.load(config_file)
 
 
-config_file = os.getenv("CONFIG_FILE")
-config = get_config(config_file)
+config = get_config()
 logging.info(config)
 context = initialize_context(config=config)
 
