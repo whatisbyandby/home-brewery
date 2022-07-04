@@ -23,24 +23,25 @@ RUN pip install -r ./requirements/test.txt
 COPY ./tests ./tests
 
 #############################################
-# Test container from a common base
+# Development container from a common base
 FROM test AS development
-COPY ./requirements/device.txt ./requirements/device.txt
-RUN pip install -r ./requirements/device.txt
+COPY ./requirements/plugins.txt ./requirements/plugins.txt
+RUN pip install -r ./requirements/plugins.txt
 COPY ./plugins ./plugins
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 
 
 #############################################
+# Container to Test Plugins container from a common base
 FROM test as test_plugins
-COPY ./plugins /code/plugins
-COPY ./requirements/device.txt ./requirements/device.txt
-RUN pip install -r ./requirements/device.txt
+COPY ./plugins ./plugins
+COPY ./requirements/plugins.txt ./requirements/plugins.txt
+RUN pip install -r ./requirements/plugins.txt
 
 
 #############################################
 # Final container with the app
 FROM base AS production
 # Only copy the ready app dir from the live step
-COPY  ./requirements/device.txt ./requirements/device.txt
-RUN pip install -r ./requirements/device.txt
+COPY  ./requirements/plugins.txt ./requirements/plugins.txt
+RUN pip install -r ./requirements/plugins.txt
