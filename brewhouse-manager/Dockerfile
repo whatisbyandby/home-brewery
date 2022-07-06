@@ -20,8 +20,9 @@ COPY ./requirements/test.txt ./requirements/test.txt
 RUN pip install -r ./requirements/test.txt
 
 RUN mkdir ./log
-COPY ./app ./app
+RUN mkdir ./public
 COPY ./config ./config
+COPY ./app ./app
 COPY ./tests ./tests
 
 #############################################
@@ -37,6 +38,7 @@ RUN mkdir ./log
 COPY ./app ./app
 COPY ./config ./config
 COPY ./plugins ./plugins
+COPY ./cover/cov_html ./public
 
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 

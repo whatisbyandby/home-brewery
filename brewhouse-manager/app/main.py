@@ -1,7 +1,7 @@
 import logging
 import json
 import asyncio
-import sys
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocket, WebSocketDisconnect
 from app.brewery_controller.brewery_controller import BreweryController
@@ -38,9 +38,11 @@ async def startup():
 
 
 @app.on_event("shutdown")
-def shutdown_event():
+def shutdown():
     logging.info("Shutting Down")
 
+
+app.mount("/coverage", StaticFiles(directory="public"), name="coverage")
 
 app.include_router(step_router)
 app.include_router(brewhouse_router)

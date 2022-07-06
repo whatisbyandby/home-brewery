@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, status, Response, Path
+from fastapi import APIRouter, Request, Response, Path
 from app.brewery_controller.brewery_controller import KettleUpdate
 
 

@@ -15,7 +15,7 @@ dev:
 test:
 	docker build -t brewery-manager:test --target test .
 	docker run -v $$PWD/cover:/code/cover \
-		brewery-manager:test pytest \
+		brewery-manager:test pytest  -rP \
 		--cov=app \
 		--cov-report=term \
 		--cov-report=html:cover/cov_html
