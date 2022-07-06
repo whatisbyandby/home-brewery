@@ -6,12 +6,10 @@ RUN pip install --upgrade pip
 
 ENV HOME=/code 
 WORKDIR ${HOME}
-
+RUN pip install uvicorn[standard]
 COPY ./requirements/requirements.txt ./requirements/requirements.txt
 RUN pip install -r ./requirements/requirements.txt
-RUN mkdir ./log
-COPY ./app ./app
-COPY ./config ./config
+
 
 
 #############################################
@@ -20,14 +18,26 @@ FROM base AS test
 # Same as in the base image but this time we also install the --dev packages
 COPY ./requirements/test.txt ./requirements/test.txt
 RUN pip install -r ./requirements/test.txt
+
+RUN mkdir ./log
+COPY ./app ./app
+COPY ./config ./config
 COPY ./tests ./tests
 
 #############################################
 # Development container from a common base
-FROM test AS development
+FROM base AS development
+
+COPY ./requirements/test.txt ./requirements/test.txt
+RUN pip install -r ./requirements/test.txt
 COPY ./requirements/plugins.txt ./requirements/plugins.txt
 RUN pip install -r ./requirements/plugins.txt
+
+RUN mkdir ./log
+COPY ./app ./app
+COPY ./config ./config
 COPY ./plugins ./plugins
+
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 
 

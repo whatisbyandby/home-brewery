@@ -9,9 +9,8 @@ def start_pins(warnings_enabled: bool = False):
 
 class GPIOPin():
 
-    def __init__(self, pin_num):
+    def __init__(self, pin_num: int):
         self.pin_num = pin_num
-        print(pin_num)
         GPIO.setup(pin_num, GPIO.OUT)
 
     def set_pin_state(self, new_state: bool) -> bool:
@@ -27,7 +26,7 @@ class GPIOPin():
         return GPIO.input(self.pin_num)
 
     def get_state(self) -> bool:
-        return GPIO.input(self.pin_num)
+        return bool(GPIO.input(self.pin_num))
 
 
 def initalize():
