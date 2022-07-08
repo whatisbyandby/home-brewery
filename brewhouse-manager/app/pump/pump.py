@@ -1,5 +1,5 @@
 from typing import Protocol, Callable, Any
-from pydantic.dataclasses import dataclass
+import pydantic
 from app.pins.pin import Pin
 
 
@@ -49,8 +49,7 @@ class CreatePumpError(Exception):
     """Should be raised when there is a problem creating a pump"""
 
 
-@dataclass
-class PumpStateRequest:
+class PumpStateRequest(pydantic.BaseModel):
     new_state: bool
 
 
