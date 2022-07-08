@@ -1,14 +1,12 @@
-import {
-  Card,
-  Image,
-  Text,
-  Badge,
-  Button,
-  Group,
-  useMantineTheme,
-} from '@mantine/core';
+import { Card, Button, useMantineTheme } from '@mantine/core';
 
-export default function Demo() {
+export interface PumpProps {
+  name: string;
+  state: boolean;
+}
+
+export default function Pump(props: PumpProps) {
+  const { name, state } = props;
   const theme = useMantineTheme();
 
   const secondaryColor =
@@ -18,31 +16,16 @@ export default function Demo() {
     <div style={{ width: 340, margin: 'auto' }}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src="./image.png" height={160} alt="Norway" />
+          <h4>{name}</h4>
         </Card.Section>
-
-        <Group
-          position="apart"
-          style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-        >
-          <Text weight={500}>Norway Fjord Adventures</Text>
-          <Badge color="pink" variant="light">
-            On Sale
-          </Badge>
-        </Group>
-
-        <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-          With Fjord Tours you can explore more of the magical fjord landscapes
-          with tours and activities on and around the fjords of Norway
-        </Text>
 
         <Button
           variant="light"
-          color="blue"
+          color={state ? 'lime' : 'grey'}
           fullWidth
           style={{ marginTop: 14 }}
         >
-          Book classic tour now
+          {state ? 'Pump On' : 'Pump Off'}
         </Button>
       </Card>
     </div>

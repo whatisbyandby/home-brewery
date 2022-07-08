@@ -1,19 +1,21 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import React from 'react';
-import Pump from "./components/Pump"
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Pumps from './components/Pumps';
 
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <MantineProvider
-      theme={{ colorScheme: 'dark' }}
-      withGlobalStyles
-      withNormalizeCSS
-    >
-      <div className="App">
-        <Pump>This is the test button</Pump>
-      </div>
-    </MantineProvider>
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider
+        theme={{ colorScheme: 'dark' }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <Pumps />
+      </MantineProvider>
+    </QueryClientProvider>
   );
 }
 
