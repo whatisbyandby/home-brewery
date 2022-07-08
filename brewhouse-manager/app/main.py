@@ -4,6 +4,7 @@ import asyncio
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse
 from app.brewery_controller.brewery_controller import BreweryController
 from app.routes.steps import step_router
 from app.routes.brewhouse import brewhouse_router
@@ -42,16 +43,9 @@ def shutdown():
     logging.info("Shutting Down")
 
 
-app.mount("/coverage", StaticFiles(directory="public"), name="coverage")
-
 app.include_router(step_router)
 app.include_router(brewhouse_router)
 app.include_router(pump_router)
-
-
-@app.get("/")
-def get_home():
-    return {"home_route": "Hello from the home route"}
 
 
 @app.websocket("/ws")
@@ -65,3 +59,5 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client  left the chat")
+
+app.mount("/", StaticFiles(directory="public", html=True), name="public")

@@ -1,5 +1,6 @@
 from hashlib import new
 from fastapi import APIRouter, Request, status, Response, Path
+from urllib3 import Retry
 from app.pump.pump import Pump, PumpStateRequest
 
 pump_router = APIRouter()
@@ -7,7 +8,15 @@ pump_router = APIRouter()
 
 @pump_router.get("/brewhouse/pumps")
 async def get_pumps(request: Request):
-    return request.app.brewery_controller.components.get("pumps")
+    pumps = []
+    retrieved_pumps = request.app.brewery_controller.components.get("pumps")
+    for key, pump in retrieved_pumps.items():
+        cur_pump = {
+            "name": pump.name,
+            "state": pump.get_state()
+        }
+        pumps.append(cur_pump)
+    return pumps
 
 
 @pump_router.get("/brewhouse/pumps/{pump_id}")

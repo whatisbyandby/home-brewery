@@ -38,7 +38,7 @@ RUN mkdir ./log
 COPY ./app ./app
 COPY ./config ./config
 COPY ./plugins ./plugins
-COPY ./cover/cov_html ./public
+COPY ./public ./public
 
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 
