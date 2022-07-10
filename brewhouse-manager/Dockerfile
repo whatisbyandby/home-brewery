@@ -20,7 +20,6 @@ COPY ./requirements/test.txt ./requirements/test.txt
 RUN pip install -r ./requirements/test.txt
 
 RUN mkdir ./log
-RUN mkdir ./public
 COPY ./config ./config
 COPY ./app ./app
 COPY ./tests ./tests
