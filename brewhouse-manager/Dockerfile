@@ -24,6 +24,7 @@ RUN mkdir ./public
 COPY ./config ./config
 COPY ./app ./app
 COPY ./tests ./tests
+COPY ./public ./public
 
 #############################################
 # Development container from a common base

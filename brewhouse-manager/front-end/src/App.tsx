@@ -1,6 +1,7 @@
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, Container } from '@mantine/core';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Kettles from './components/Kettles';
 import Pumps from './components/Pumps';
 
 const queryClient = new QueryClient();
@@ -13,7 +14,10 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Pumps />
+        <Container>
+          <Kettles />
+          <Pumps />
+        </Container>
       </MantineProvider>
     </QueryClientProvider>
   );

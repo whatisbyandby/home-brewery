@@ -1,3 +1,4 @@
 export async function getPumps() {
-  fetch('/brewhouse/pumps');
+  const res = await fetch('/brewhouse/pumps');
+  return await res.json();
 }

@@ -12,7 +12,11 @@ async def get_brewery_config(request: Request):
 
 @brewhouse_router.get("/brewhouse/kettles")
 async def get_brewehouse_kettles(request: Request):
-    return request.app.brewery_controller.components.get("kettles")
+    kettles = []
+    kettle_dict = request.app.brewery_controller.components.get("kettles")
+    for key, value in kettle_dict.items():
+        kettles.append(value)
+    return kettles
 
 
 @brewhouse_router.get("/brewhouse/kettles/{kettle_id}")

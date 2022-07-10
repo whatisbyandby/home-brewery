@@ -1,26 +1,19 @@
-import { useQueryClient, useQuery } from 'react-query';
+import { Group } from '@mantine/core';
+import { useQueryClient, useQuery, useMutation } from 'react-query';
 import { getPumps } from '../queries/getPumps';
-import Pump from './Pump';
+import Pump, { PumpProps } from './Pump';
 
 export default function Pumps() {
-  const queryClient = useQueryClient();
-
   const { data, isError, isLoading } = useQuery('pumps', getPumps);
 
-  if (isLoading) <h2>Loading...</h2>;
-  if (isError) <h2>Error</h2>;
+  if (isLoading) return <h2>Loading...</h2>;
+  if (isError) return <h2>Error</h2>;
 
-  console.log(data);
-
-  return null;
-
-  //   if (data) {
-  //     return (
-  //       <div>
-  //         {data.map((pump) => (
-  //           <Pump name={pump.stat} state={pump.state} />
-  //         ))}
-  //       </div>
-  //     );
-  //   }
+  return (
+    <Group>
+      {data.map((pump: PumpProps) => (
+        <Pump key={pump.name} name={pump.name} state={pump.state} />
+      ))}
+    </Group>
+  );
 }

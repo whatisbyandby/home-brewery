@@ -18,8 +18,5 @@ def test_get_pumps():
     response = client.get("/brewhouse/pumps")
 
     assert response.status_code == 200
-    res_dict = response.json()
-    water_pump = res_dict.get("water_pump")
-    assert water_pump is not None
-    assert water_pump["name"] == "Mock Pump"
-    res_dict["wort_pump"]["name"] == "Mock Pump"
+    res_list = response.json()
+    assert len(res_list) == 2
