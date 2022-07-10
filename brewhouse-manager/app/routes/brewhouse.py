@@ -14,8 +14,14 @@ async def get_brewery_config(request: Request):
 async def get_brewehouse_kettles(request: Request):
     kettles = []
     kettle_dict = request.app.brewery_controller.components.get("kettles")
-    for key, value in kettle_dict.items():
-        kettles.append(value)
+    for kettle in kettle_dict.values():
+        parsed_kettle = {
+            "name": kettle.name,
+            "temperature": kettle.get_current_temp()
+
+        }
+
+        kettles.append(parsed_kettle)
     return kettles
 
 

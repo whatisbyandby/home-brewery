@@ -48,3 +48,8 @@ def test_kettle_init():
     )
 
     kettle = Kettle(name="Test", temp_controller=temp_controller)
+
+
+def test_get_current_temp(kettle: Kettle):
+    cur_temp = kettle.get_current_temp()
+    assert cur_temp is not None

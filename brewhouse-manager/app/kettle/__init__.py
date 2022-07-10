@@ -10,6 +10,9 @@ class Kettle:
     def get_set_temp(self):
         return self.temperature_controller.get_set_temp()
 
+    def get_current_temp(self):
+        return self.temperature_controller.get_current_temperature()
+
     def update_set_temp(self, new_set_temp: float):
         self.temperature_controller.update_set_temp(new_set_temp=new_set_temp)
 

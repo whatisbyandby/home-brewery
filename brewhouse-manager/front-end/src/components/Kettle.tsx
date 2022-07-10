@@ -7,7 +7,7 @@ export interface KettleProps {
 export default function Kettle(props: KettleProps) {
   const { name } = props;
   return (
-    <div>
+    <div style={{ width: 300, margin: 'auto' }}>
       <Card shadow="sm" p="lg">
         <Card.Section>
           <Center>

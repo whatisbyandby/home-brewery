@@ -1,4 +1,8 @@
 import pytest
+from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode
+from app.kettle import Kettle
+from app.temperature_controller.temperature_sensor import MockSensor
+from app.temperature_controller.heaters import MockHeater
 
 
 @pytest.fixture
@@ -213,3 +217,20 @@ def config():
             }
         }
     }
+
+
+@pytest.fixture
+def kettle():
+    sensors = [MockSensor()]
+    mode = ControllerMode.HEATER
+    temp_range = 1
+    heater = MockHeater()
+
+    temp_controller = TemperatureController(
+        sensors=sensors,
+        mode=mode,
+        temp_range=temp_range,
+        heater=heater
+    )
+
+    return Kettle(name="Test", temp_controller=temp_controller)
