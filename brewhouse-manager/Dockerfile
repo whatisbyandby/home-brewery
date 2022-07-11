@@ -39,6 +39,7 @@ COPY ./app ./app
 COPY ./config ./config
 COPY ./plugins ./plugins
 COPY ./public ./public
+COPY ./cover/cov_html ./public/coverage
 
 ENTRYPOINT [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 

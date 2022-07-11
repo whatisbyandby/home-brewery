@@ -2,7 +2,6 @@ from app.kettle import create_kettle, Kettle
 from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode
 from app.temperature_controller.heaters import MockHeater
 from app.temperature_controller.temperature_sensor import MockSensor
-from app.pump.pump import MockPump
 
 
 def test_create_kettle(config, context):
@@ -28,6 +27,7 @@ def test_kettle_init():
     )
 
     kettle = Kettle(name="Test", temp_controller=temp_controller)
+    assert kettle is not None
 
 
 def test_get_current_temp(kettle: Kettle):

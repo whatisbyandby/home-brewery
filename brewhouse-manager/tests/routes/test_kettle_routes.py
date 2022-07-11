@@ -4,7 +4,6 @@ from app.brewery_controller.brewery_controller import BreweryController
 
 
 def test_get_kettle(context: dict):
-    print(context)
 
     client = TestClient(app)
 

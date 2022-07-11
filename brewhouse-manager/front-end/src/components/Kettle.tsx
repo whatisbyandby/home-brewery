@@ -1,20 +1,20 @@
-import { Card, Button, useMantineTheme, Center } from '@mantine/core';
+import { Group } from '@mantine/core';
 
 export interface KettleProps {
   name: string;
+  mode: string;
+  state: string;
 }
 
 export default function Kettle(props: KettleProps) {
-  const { name } = props;
+  const { name, mode, state } = props;
   return (
-    <div style={{ width: 300, margin: 'auto' }}>
-      <Card shadow="sm" p="lg">
-        <Card.Section>
-          <Center>
-            <h4>{name}</h4>
-          </Center>
-        </Card.Section>
-      </Card>
+    <div>
+      <Group direction="column" grow={true}>
+        <h4>{name}</h4>
+        <h4>{mode}</h4>
+        <h4>{state}</h4>
+      </Group>
     </div>
   );
 }

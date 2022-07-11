@@ -1,5 +1,5 @@
 import { Container, Group } from '@mantine/core';
-import { useQueryClient, useQuery, useMutation } from 'react-query';
+import { useQuery } from 'react-query';
 import { getKettles } from '../queries/getKettles';
 import Kettle, { KettleProps } from './Kettle';
 
@@ -13,7 +13,12 @@ export default function Kettles() {
     <Container>
       <Group>
         {data.map((kettle: KettleProps) => (
-          <Kettle key={kettle.name} name={kettle.name} />
+          <Kettle
+            key={kettle.name}
+            name={kettle.name}
+            state={kettle.state}
+            mode={kettle.mode}
+          />
         ))}
       </Group>
     </Container>
