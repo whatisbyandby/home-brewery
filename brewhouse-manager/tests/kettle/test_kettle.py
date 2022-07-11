@@ -5,29 +5,9 @@ from app.temperature_controller.temperature_sensor import MockSensor
 from app.pump.pump import MockPump
 
 
-def test_create_kettle():
-    context = {
-        "pumps": {
-            "water_pump": MockPump()
-        },
-        "sensors": {
-            "hlt_temp": MockSensor()
-        },
-        "heaters": {
-            "hlt_heater": MockHeater()
-        }
-    }
+def test_create_kettle(config, context):
 
-    kettle_config = {
-        "id": "hlt",
-        "name": "Hot Liquor Tank",
-        "temperature_controller": {
-                "sensors": [
-                    "hlt_temp"
-                ],
-            "heater": "hlt_heater"
-        }
-    }
+    kettle_config = config['kettles']['hlt']
 
     kettle = create_kettle(kettle_config, context=context)
     assert kettle is not None

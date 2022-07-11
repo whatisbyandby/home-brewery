@@ -1,6 +1,8 @@
+from pydantic.dataclasses import dataclass
 from app.temperature_controller.temperature_controller import TemperatureController, ControllerMode
 
 
+@dataclass
 class Kettle:
 
     def __init__(self, name: str, temp_controller: TemperatureController):
@@ -25,8 +27,16 @@ def create_kettle(kettle_config: dict, context: dict) -> Kettle:
     temp_controller_config = kettle_config.get("temperature_controller")
     heater = context["heaters"][temp_controller_config.get("heater")]
 
+    sensors = []
+    sensors_config = kettle_config['temperature_controller']['sensors']
+
+    for sensor_config in sensors_config:
+        temp_sensors = context.get("temp_sensors")
+        sensor = temp_sensors.get(sensor_config)
+        sensors.append(sensor)
+
     temp_controller = TemperatureController(
-        sensors=context.get(kettle_config.get("sensor")), mode=mode, temp_range=temp_range, heater=heater)
+        sensors=sensors, mode=mode, temp_range=temp_range, heater=heater)
 
     kettle = Kettle(name, temp_controller)
     return kettle
